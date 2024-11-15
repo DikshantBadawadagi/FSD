@@ -13,7 +13,16 @@ const ChatPage = () => {
     const [textMessage, setTextMessage] = useState("");
     const { user, suggestedUsers, selectedUser } = useSelector(store => store.auth);
     const { onlineUsers, messages } = useSelector(store => store.chat);
+    const { socket } = useSelector(store => store.socketio);
     const dispatch = useDispatch();
+
+    const handleTyping = () => {
+        socket.emit('typing', {
+            senderId: user._id,
+            receiverId: selectedUser._id,
+            isTyping: textMessage.length > 3, // true if there is text in the input
+        });
+    };
 
     const sendMessageHandler = async (receiverId) => {
         try {
@@ -78,7 +87,10 @@ const ChatPage = () => {
                         </div>
                         <Messages selectedUser={selectedUser} />
                         <div className='flex items-center p-4 border-t border-t-gray-300'>
-                            <Input value={textMessage} onChange={(e) => setTextMessage(e.target.value)} type="text" className='flex-1 mr-2 focus-visible:ring-transparent' placeholder="Messages..." />
+                            <Input value={textMessage} onChange={(e) => {
+                                setTextMessage(e.target.value);
+                                handleTyping();
+                                }} type="text" className='flex-1 mr-2 focus-visible:ring-transparent' placeholder="Messages..." />
                             <Button onClick={() => sendMessageHandler(selectedUser?._id)}>Send</Button>
                         </div>
                     </section>

@@ -25,6 +25,13 @@ io.on('connection', (socket)=>{
 
     io.emit('getOnlineUsers', Object.keys(userSocketMap));
 
+    socket.on('typing', ({ senderId, receiverId, isTyping }) => {
+        const receiverSocketId = getReceiverSocketId(receiverId);
+        if (receiverSocketId) {
+            io.to(receiverSocketId).emit('typing', { senderId, isTyping });
+        }
+    });
+    
     socket.on('disconnect',()=>{
         if(userId){
             delete userSocketMap[userId];
