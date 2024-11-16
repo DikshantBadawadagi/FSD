@@ -17,7 +17,7 @@ const SuggestedUsers = () => {
             {suggestedUsers.map((user) => (
                 <div key={user._id} className='flex items-center justify-between my-5 hover:bg-indigo-50 p-3 rounded-xl transition-all duration-300'>
                     <div className='flex items-center gap-4'>
-                        <Link to={`/community/profile/${user?._id}`}>
+                        <Link to={`/profile/${user?._id}`}>
                             <Avatar className="w-12 h-12">
                                 <AvatarImage src={user?.profilePicture} alt="profile_image" />
                                 <AvatarFallback>CN</AvatarFallback>
