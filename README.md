@@ -48,16 +48,18 @@ Here’s a snapshot of the user interface:
 *(Attach or describe the main screens: login page, chat window, user list, etc.)*  
 
 1. **Login Page**  
-   A clean interface for user authentication.  
+   ![Alt text](./assets/Screenshot%202024-11-16%20201459.png)
+   ![Alt text](./assets/Screenshot%202024-11-16%20201440.png)
 2. **Chat Window**  
-   Real-time updates with timestamps and typing indicators.  
-3. **User List**  
-   Displays online/offline users dynamically.  
-4. **Home Page** 
-
+   ![Alt text](./assets/Screenshot%202024-11-16%20200614.png)  
+3. **Comment and Like**  
+   ![Alt text](./assets/Screenshot%202024-11-16%20200726.png)  
+4. **Home Page**
+   ![Alt text](./assets/Screenshot%202024-11-16%20200450.png)
 5. **Profile Page**
-
-
+   ![Alt text](./assets/Screenshot%202024-11-16%20200939.png)
+6. **Create Media File**
+   ![Alt text](./assets/Screenshot%202024-11-16%20200841.png)
 ---
 
 ## 🧑‍💻 How to Run the Project
