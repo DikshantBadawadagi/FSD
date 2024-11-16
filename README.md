@@ -121,18 +121,17 @@ Visit the app at [http://localhost:5173](http://localhost:5173).
 
 ## 🛠️ Deployment Guide
 
-### Frontend Deployment (Blender)
+### Deployment (Blender)
 1. Build the frontend for production:
    ```bash
    npm run build
    ```
-2. Upload the `frontend/build` folder to Blender.
-3. Set up environment variables in Blender
-
-### Backend Deployment (Heroku/AWS/etc.)
-1. Ensure MongoDB is accessible online.
-2. Upload the backend to your hosting platform.
-3. Set the necessary environment variables.
+2. Upload the `frontend/dist` folder to Blender.
+3. Start the Project in production:
+   ```bash
+   npm run start
+   ```
+4. Set up environment variables in Blender
 
 ---
 
