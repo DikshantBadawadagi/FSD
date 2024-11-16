@@ -65,9 +65,6 @@ const Profile = () => {
               <div className='flex flex-col gap-1'>
                 <span className='font-semibold'>{userProfile?.bio || 'bio here...'}</span>
                 <Badge className='w-fit' variant='secondary'><AtSign /> <span className='pl-1'>{userProfile?.username}</span> </Badge>
-                <span>Brilliant Coder and Should Definetly added as an intern at learnie</span>
-                <span>Turing code into fun</span>
-                <span>Mern Stack Developer</span>
               </div>
             </div>
           </section>
