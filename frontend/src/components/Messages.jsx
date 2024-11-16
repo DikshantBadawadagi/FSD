@@ -1,16 +1,16 @@
-import React, { useEffect, useState } from 'react';
-import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar';
-import { Button } from './ui/button';
-import { Link } from 'react-router-dom';
-import { useSelector } from 'react-redux';
-import useGetAllMessage from '@/hooks/useGetAllMessage';
-import useGetRTM from '@/hooks/useGetRTM';
+import React, { useEffect, useState } from 'react'
+import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
+import { Button } from './ui/button'
+import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import useGetAllMessage from '@/hooks/useGetAllMessage'
+import useGetRTM from '@/hooks/useGetRTM'
 
 const Messages = ({ selectedUser }) => {
     useGetRTM();
     useGetAllMessage();
-    const { messages } = useSelector(store => store.chat);
-    const { user } = useSelector(store => store.auth);
+    const {messages} = useSelector(store=>store.chat);
+    const {user} = useSelector(store=>store.auth);
 
     const [isTyping, setIsTyping] = useState(false);
     const { socket } = useSelector(store => store.socketio);
@@ -27,44 +27,39 @@ const Messages = ({ selectedUser }) => {
         };
     }, [socket, selectedUser]);
 
-    return (
-        <div className="flex flex-col h-full">
-            {/* Header */}
-            <div className="flex items-center gap-4 p-4 bg-gray-100 shadow-sm">
-                <Avatar className="h-12 w-12">
-                    <AvatarImage src={selectedUser?.profilePicture} alt="profile" />
-                    <AvatarFallback>{selectedUser?.username?.charAt(0).toUpperCase()}</AvatarFallback>
-                </Avatar>
-                <div>
+
+    return (    
+        <div className='overflow-y-auto flex-1 p-4'>
+            <div className='flex justify-center'>
+                <div className='flex flex-col items-center justify-center'>
+                    <Avatar className="h-20 w-20">
+                        <AvatarImage src={selectedUser?.profilePicture} alt='profile' />
+                        <AvatarFallback>CN</AvatarFallback>
+                    </Avatar>
+                    <span>{selectedUser?.username}</span>
+                    <div>
                     <h2 className="font-semibold text-lg">{selectedUser?.username}</h2>
-                    {isTyping && <p className="text-sm text-gray-500">Typing...</p>}
+                    {isTyping && <p className="text-sm lm-10 text-green-500">Typing...</p>}
                 </div>
-                <Link to={`/profile/${selectedUser?._id}`} className="ml-auto">
-                    <Button className="h-8" variant="secondary">View Profile</Button>
-                </Link>
+                    <Link to={`/profile/${selectedUser?._id}`}><Button className="h-8 my-2" variant="secondary">View profile</Button></Link>
+                </div>
             </div>
+            <div className='flex flex-col gap-3'>
+                {
+                   messages && messages.map((msg) => {
+                        return (
+                            <div key={msg._id} className={`flex ${msg.senderId === user?._id ? 'justify-end' : 'justify-start'}`}>
+                                <div className={`p-2 rounded-lg max-w-xs break-words ${msg.senderId === user?._id ? 'bg-blue-500 text-white' : 'bg-gray-200 text-black'}`}>
+                                    {msg.message}
+                                </div>
+                            </div>
+                        )
+                    })
+                }
 
-            {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 bg-gray-50">
-                {messages && messages.map((msg) => (
-                    <div
-                        key={msg._id}
-                        className={`flex ${msg.senderId === user?._id ? 'justify-end' : 'justify-start'} mb-3`}
-                    >
-                        <div
-                            className={`p-3 rounded-lg max-w-xs text-sm break-words shadow-md ${
-                                msg.senderId === user?._id
-                                    ? 'bg-blue-500 text-white'
-                                    : 'bg-gray-200 text-black'
-                            }`}
-                        >
-                            {msg.message}
-                        </div>
-                    </div>
-                ))}
             </div>
-        </div>
-    );
-};
+        </div>  
+    )
+}
 
-export default Messages;
+export default Messages
