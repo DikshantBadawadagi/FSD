@@ -167,6 +167,11 @@ Visit the app at [http://localhost:5173](http://localhost:5173).
 
 ---
 
+## Common Problems
+
+-**Frontend** You have to manually change the rediriection link of some api endpoints to match with your local host
+-**backend** You need to configure your .env files outside the backend in the project root and not inside the backend
+
 ## 🌟 Highlights
 
 - **Scalability**: Modular architecture allows easy scaling for large user bases.  
