@@ -17,8 +17,10 @@ The **Real-Time Chat Application** is a modern, full-stack solution for seamless
 2. **Real-Time Messaging**  
    - Live chat powered by **Socket.io**, without page reloads.  
    - Persistent chat history stored in MongoDB.
+   - Media Upload as well so you can share photos in chat
 3. **User Presence Indicators**  
    - Show online/offline status dynamically.
+   - shows Typing... real time when a person is typing the message
 4. **Interactive User Interface**  
    - React-based chat interface.  
    - Clean and modern UI for users to get used to easily
@@ -50,16 +52,22 @@ Here’s a snapshot of the user interface:
 1. **Login Page**  
    ![Alt text](./assets/Screenshot%202024-11-16%20201459.png)
    ![Alt text](./assets/Screenshot%202024-11-16%20201440.png)
-2. **Chat Window**  
-   ![Alt text](./assets/Screenshot%202024-11-16%20200614.png)  
+   
+2. **Chat Window with text and media upload function**  
+   ![Alt text](./assets/Screenshot%202024-11-19%20023736.png)
+   ![Alt text](./assets/Screenshot%202024-11-19%20023959.png)
+
 3. **Comment and Like**  
    ![Alt text](./assets/Screenshot%202024-11-16%20200726.png)  
+
 4. **Home Page**
    ![Alt text](./assets/Screenshot%202024-11-16%20200450.png)
+
 5. **Profile Page**
    ![Alt text](./assets/Screenshot%202024-11-16%20200939.png)
-6. **Create Media File**
-   ![Alt text](./assets/Screenshot%202024-11-16%20200841.png)
+   
+6. **Create Media File Post**
+   ![Alt text](./assets/Screenshot%202024-11-19%20024113.png)
 ---
 
 ## 🧑‍💻 How to Run the Project
@@ -147,6 +155,9 @@ Visit the app at [http://localhost:5173](http://localhost:5173).
    - Sends messages in real-time between users.  
    - Depicts **online status** and **typing indicators** when a user is active and typing.  
    - Chat messages are stored persistently in **MongoDB**, allowing users to view past conversations.  
+   - Could also share media files from one user to another in real time 
+   - Shows Typing when two people are having conversation
+
 
 3. **User Posts**  
    - Users can create posts, which other users can like and comment on.  
@@ -172,6 +183,8 @@ Visit the app at [http://localhost:5173](http://localhost:5173).
 -**Frontend** You have to manually change the rediriection link of some api endpoints to match with your local host
 -**backend** You need to configure your .env files outside the backend in the project root and not inside the backend
 
+---
+
 ## 🌟 Highlights
 
 - **Scalability**: Modular architecture allows easy scaling for large user bases.  
@@ -192,9 +205,9 @@ Visit the app at [http://localhost:5173](http://localhost:5173).
 
 ## 🚧 Future Improvements
 
-1. **Group Chats**: Extend functionality to support multi-user conversations.  
+1. **Group Chats**: Extend functionality to support multi-user conversations.(Backend Part Done)
 2. **Push Notifications**: Notify users of new messages.  
-3. **Themes**: Add dark/light mode support.
+3. **Themes**: Add dark/light mode support as well making some components responsive
 
 ---
 
