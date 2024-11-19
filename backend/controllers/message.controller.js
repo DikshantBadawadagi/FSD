@@ -21,9 +21,6 @@ export const sendMessage = async (req, res) => {
             mediaUrl = cloudResponse.secure_url;
         }
 
-        if(!mediaUrl && !message){
-            throw new ApiError(404, "message not found")
-        }
         // Find or create a conversation.
         let conversation = await Conversation.findOne({
             participants: { $all: [senderId, receiverId] }
