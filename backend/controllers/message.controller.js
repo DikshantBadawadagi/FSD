@@ -3,7 +3,6 @@ import { getReceiverSocketId, io } from "../socket/socket.js";
 import {Message} from "../models/message.model.js"
 import getDataUri from "../utils/datauri.js";
 import cloudinary from "../utils/cloudinary.js";
-import ApiError from "../utils/ApiError.js"
 // for chatting
 export const sendMessage = async (req, res) => {
     try {
