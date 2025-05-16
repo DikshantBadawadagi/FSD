@@ -258,4 +258,23 @@ export const bookmarkPost = async (req,res) => {
     } catch (error) {
         console.log(error);
     }
-}
+};
+
+export const searchPostsByCaption = async (req, res) => {
+  try {
+    const { query } = req.query; 
+
+    if (!query || query.trim() === '') {
+      return res.status(400).json({ message: 'Search query is required' });
+    }
+
+    const matchingPosts = await Post.find({
+      caption: { $regex: query, $options: 'i' }
+    }).select('_id caption');
+
+    res.status(200).json({ posts: matchingPosts });
+  } catch (error) {
+    console.error('Error searching posts:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
