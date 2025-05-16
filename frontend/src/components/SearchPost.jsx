@@ -10,14 +10,17 @@ const SearchPosts = () => {
 
   const handleSearch = async (e) => {
     e.preventDefault();
-    
+
     if (!searchQuery.trim()) return;
-    
+
     setIsLoading(true);
     setError(null);
-    
+
     try {
-      const response = await axios.get(`https://fsd-mb6b.onrender.com/api/v1/post/search?query=${encodeURIComponent(searchQuery)}`, { withCredentials: true });
+      const response = await axios.get(
+        `https://fsd-mb6b.onrender.com/api/v1/post/search?query=${encodeURIComponent(searchQuery)}`,
+        { withCredentials: true }
+      );
       setSearchResults(response.data.posts);
     } catch (err) {
       console.error('Error searching posts:', err);
@@ -28,29 +31,44 @@ const SearchPosts = () => {
   };
 
   return (
-    <div className="search-posts-container">
-      <form onSubmit={handleSearch} className="search-form">
+    <div className="flex flex-col items-center justify-start min-h-screen w-full px-4 py-8 bg-gray-100">
+      <form
+        onSubmit={handleSearch}
+        className="w-full max-w-xl flex gap-4 items-center bg-white p-4 rounded-xl shadow-md"
+      >
         <input
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="Search posts by caption..."
-          className="search-input"
+          placeholder="🔍 Search posts by caption..."
+          className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
-        <button type="submit" className="search-button">Search</button>
+        <button
+          type="submit"
+          className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition"
+        >
+          Search
+        </button>
       </form>
 
-      {isLoading && <div className="loading">Loading...</div>}
-      
-      {error && <div className="error">{error}</div>}
-      
-      <div className="search-results">
+      {isLoading && (
+        <div className="mt-6 text-blue-600 font-medium">Searching...</div>
+      )}
+
+      {error && (
+        <div className="mt-6 text-red-500 font-medium">{error}</div>
+      )}
+
+      <div className="mt-8 w-full max-w-2xl space-y-6">
         {searchResults.length > 0 ? (
           searchResults.map((post) => (
             <Post key={post._id} id={post._id} />
           ))
         ) : (
-          !isLoading && <div className="no-results">No posts found</div>
+          !isLoading &&
+          searchQuery && (
+            <div className="text-center text-gray-600">No posts found.</div>
+          )
         )}
       </div>
     </div>
