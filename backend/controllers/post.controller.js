@@ -262,22 +262,44 @@ export const bookmarkPost = async (req,res) => {
 
 export const searchPostsByCaption = async (req, res) => {
   try {
-    const { query } = req.query; 
+    const { query } = req.query;
 
     if (!query || query.trim() === '') {
       return res.status(400).json({ message: 'Search query is required' });
     }
 
-    const matchingPosts = await Post.find({
-      caption: { $regex: query, $options: 'i' }
-    }).select('_id caption');
+    const keywords = query.trim().split(/\s+/); // Split into words
+    const regexFilters = keywords.map((word) => ({
+      caption: { $regex: word, $options: 'i' },
+    }));
 
-    res.status(200).json({ posts: matchingPosts });
+    // Fetch matching posts with keyword score
+    const posts = await Post.aggregate([
+      { $match: { $or: regexFilters } },
+      {
+        $addFields: {
+          matchCount: {
+            $size: {
+              $filter: {
+                input: keywords,
+                as: 'kw',
+                cond: { $regexMatch: { input: '$caption', regex: '$$kw', options: 'i' } },
+              },
+            },
+          },
+        },
+      },
+      { $sort: { matchCount: -1 } },
+      { $project: { _id: 1, caption: 1 } },
+    ]);
+
+    res.status(200).json({ posts });
   } catch (error) {
     console.error('Error searching posts:', error);
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
 
 export const getPostById = async (req,res) => {
     try {
