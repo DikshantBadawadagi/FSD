@@ -15,13 +15,36 @@ const SearchPosts = () => {
 
     setIsLoading(true);
     setError(null);
+    setSearchResults([]);
 
     try {
-      const response = await axios.get(
+      // Step 1: Search post IDs by caption
+      const searchResponse = await axios.get(
         `https://fsd-mb6b.onrender.com/api/v1/post/search?query=${encodeURIComponent(searchQuery)}`,
         { withCredentials: true }
       );
-      setSearchResults(response.data.posts);
+
+      const postIds = searchResponse.data.posts.map((post) => post._id);
+
+      // Step 2: Fetch full posts using /getPost/:id
+      const fullPosts = await Promise.all(
+        postIds.map(async (id) => {
+          try {
+            const res = await axios.get(
+              `https://fsd-mb6b.onrender.com/api/v1/post/getPost/${id}`,
+              { withCredentials: true }
+            );
+            return res.data.post;
+          } catch (err) {
+            console.error(`Failed to fetch post with id ${id}:`, err);
+            return null; // Skip failed fetches
+          }
+        })
+      );
+
+      // Filter out any failed/null posts
+      const validPosts = fullPosts.filter((post) => post !== null);
+      setSearchResults(validPosts);
     } catch (err) {
       console.error('Error searching posts:', err);
       setError('Failed to fetch search results. Please try again.');
@@ -40,7 +63,7 @@ const SearchPosts = () => {
           type="text"
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
-          placeholder="🔍 Search posts by caption..."
+          placeholder="Search posts by caption..."
           className="flex-1 px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
         />
         <button
@@ -62,7 +85,7 @@ const SearchPosts = () => {
       <div className="mt-8 w-full max-w-2xl space-y-6">
         {searchResults.length > 0 ? (
           searchResults.map((post) => (
-            <Post key={post._id} id={post._id} />
+            <Post key={post._id} post={post} />
           ))
         ) : (
           !isLoading &&

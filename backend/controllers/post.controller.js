@@ -278,3 +278,14 @@ export const searchPostsByCaption = async (req, res) => {
     res.status(500).json({ message: 'Internal server error' });
   }
 };
+
+export const getPostById = async (req,res) => {
+    try {
+        const postId = req.params.id;
+        const post = await Post.findById(postId);
+        if(!post) return res.status(404).json({message:'Post not found', success:false});
+        return res.status(200).json({post, success:true});
+    } catch (error) {
+        console.log(error);
+    }
+}
