@@ -92,15 +92,15 @@ const Post = ({ post }) => {
     }
 
     const bookmarkHandler = async () => {
-        try {
-            const res = await axios.get(`https://fsd-mb6b.onrender.com/api/v1/post/${post?._id}/bookmark`, {withCredentials:true});
-            if(res.data.success){
-                toast.success(res.data.message);
-            }
-        } catch (error) {
-            console.log(error);
-            toast.error("Error bookmarking post");
-        }
+        // try {
+        //     const res = await axios.get(`https://fsd-mb6b.onrender.com/api/v1/post/${post?._id}/bookmark`, {withCredentials:true});
+        //     if(res.data.success){
+        //         toast.success(res.data.message);
+        //     }
+        // } catch (error) {
+        //     console.log(error);
+        //     toast.error("Error bookmarking post");
+        // }
     }
 
     return (
