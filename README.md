@@ -214,7 +214,7 @@ Visit the app at [http://localhost:5173](http://localhost:5173).
 ## 💾 Repository & Deployment Links
 
 - **GitHub**: [[Link to repository](https://github.com/DivamSanghvi/LearnieTask.git)](#)  
-- **Deployed Project (Blender)**: [[Link to deployed site](http://localhost:8000/)](#)  
+- **Deployed Project (Blender)**: [[Link to deployed site](https://fsd-mb6b.onrender.com/)](#)  
 
 ---
 

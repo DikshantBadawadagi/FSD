@@ -38,7 +38,7 @@ const ChatPage = () => {
             formData.append('Picture', file);
             formData.append('mediaType', file ? file.type.split('/')[0] : 'text');
     
-            const res = await axios.post(`http://localhost:8000/api/v1/message/send/${receiverId}`, formData, {
+            const res = await axios.post(`https://fsd-mb6b.onrender.com/api/v1/message/send/${receiverId}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -237,7 +237,7 @@ export default ChatPage;
 //             formData.append('Picture', file);
 //             formData.append('mediaType', file ? file.type.split('/')[0] : 'text');
     
-//             const res = await axios.post(`http://localhost:8000/api/v1/message/send/${receiverId}`, formData, {
+//             const res = await axios.post(`https://fsd-mb6b.onrender.com/api/v1/message/send/${receiverId}`, formData, {
 //                 headers: {
 //                     'Content-Type': 'multipart/form-data',
 //                 },
@@ -279,7 +279,7 @@ export default ChatPage;
 //             setSummary(''); // Clear any previous summary
             
 //             const response = await axios.post(
-//                 `http://localhost:8000/api/v1/message/chat/summarize-with/${selectedUser._id}`,
+//                 `https://fsd-mb6b.onrender.com/api/v1/message/chat/summarize-with/${selectedUser._id}`,
 //                 {},
 //                 { withCredentials: true }
 //             );
