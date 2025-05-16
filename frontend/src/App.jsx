@@ -15,6 +15,7 @@ import { setLikeNotification } from './redux/rtnSlice'
 import ProtectedRoutes from './components/ProtectedRoutes'
 import { AuroraBackground } from './components/ui/aurora-background'
 import { AuroraBackgroundDemo } from './components/TestPage'
+import SearchPosts from './components/SearchPost'
 
 const browserRouter = createBrowserRouter([
 
@@ -29,6 +30,10 @@ const browserRouter = createBrowserRouter([
       {
         path: '/profile/:id',
         element: <ProtectedRoutes> <Profile /></ProtectedRoutes>
+      },
+      {
+        path: '/search',
+        element: <ProtectedRoutes> <SearchPosts/> </ProtectedRoutes>
       },
       {
         path: '/account/edit',
