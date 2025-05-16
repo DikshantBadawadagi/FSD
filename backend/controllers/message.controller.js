@@ -3,6 +3,7 @@ import { getReceiverSocketId, io } from "../socket/socket.js";
 import {Message} from "../models/message.model.js"
 import getDataUri from "../utils/datauri.js";
 import cloudinary from "../utils/cloudinary.js";
+import { generateSummary } from "./summaryController.js";
 // for chatting
 export const sendMessage = async (req, res) => {
     try {
@@ -69,4 +70,37 @@ export const getMessage = async (req,res) => {
     } catch (error) {
         console.log(error);
     }
-}
+};
+
+export const fetchAndSummarizeChat = async (req, res) => {
+  try {
+    const loggedInUserId = req.id;
+    const otherUserId = req.params.otherUserId;
+
+    const messages = await Message.find({
+      $or: [
+        { senderId: loggedInUserId, receiverId: otherUserId },
+        { senderId: otherUserId, receiverId: loggedInUserId },
+      ],
+    })
+      .sort({ createdAt: 1 })
+      .populate("senderId", "username");
+
+    if (!messages || messages.length === 0) {
+      return res.status(404).json({ error: "No messages found between users." });
+    }
+
+    const formattedMessages = messages.map((msg) => ({
+      sender: msg.senderId.username || msg.senderId._id.toString(),
+      content: msg.message || "[Media]",
+      timestamp: msg.createdAt,
+    }));
+
+    const summary = await generateSummary(formattedMessages);
+
+    res.status(200).json({ summary });
+  } catch (err) {
+    console.error("Summarization error:", err);
+    res.status(500).json({ error: "Could not summarize chat" });
+  }
+};

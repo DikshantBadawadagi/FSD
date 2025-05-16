@@ -61,7 +61,7 @@ function App() {
 
   useEffect(() => {
     if (user) {
-      const socketio = io('https://learnietaskdivamsanghvi.onrender.com/', {
+      const socketio = io('http://localhost:8000/', {
         query: {
           userId: user?._id
         },
